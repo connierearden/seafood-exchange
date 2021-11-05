@@ -15,17 +15,20 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    //test +
     @GetMapping
     public List<ProductDTO> getAll () {
         return productService.getAllProducts().stream()
                 .map(ProductDTO::new).collect(Collectors.toList());
     }
 
+    //test +
     @GetMapping("/{prodId}")
     public ProductDTO getById (@PathVariable Long prodId) {
         return new ProductDTO(productService.getProductById(prodId));
     }
 
+    //test +
     @PostMapping
     public String create (@RequestBody ProductDTO productDTO) {
         Product product = Product.builder()
