@@ -6,7 +6,6 @@ import seafoodexchange.model.Product;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductDTO {
