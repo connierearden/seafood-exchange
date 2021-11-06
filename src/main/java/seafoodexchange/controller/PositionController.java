@@ -49,5 +49,10 @@ public class PositionController {
                 .map(PositionResponseDTO::new).collect(Collectors.toList());
     }
 
+    public static void main(String[] args) {
+        String dateStart = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        System.out.println(dateStart);
+    }
+
 
 }

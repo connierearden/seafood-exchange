@@ -9,6 +9,7 @@ import seafoodexchange.model.Position;
 import seafoodexchange.model.Product;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -16,10 +17,10 @@ import java.time.LocalDateTime;
 public class PositionResponseDTO {
 
     @JsonProperty("date_start")
-    private LocalDateTime dateStart;
+    private String dateStart;
 
     @JsonProperty("date_finish")
-    private LocalDateTime dateFinish;
+    private String dateFinish;
 
     private CompanyDTO company;
 
@@ -34,8 +35,8 @@ public class PositionResponseDTO {
     private int boxWeight;
 
     public PositionResponseDTO(Position position) {
-        dateStart = position.getDateStart();
-        dateFinish = position.getDateFinish();
+        dateStart = position.getDateStart().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
+        dateFinish = position.getDateFinish().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
         company = new CompanyDTO(position.getCompany());
         product = new ProductDTO(position.getProduct());
         priceForKilogram = position.getPriceForKilogram();
