@@ -1,11 +1,11 @@
 package seafoodexchange.controller.dto;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class GrowerRequestDTO {
-    private String name;
-    private String country;
+@NoArgsConstructor
+public class CompanyResponseDTO {
 }

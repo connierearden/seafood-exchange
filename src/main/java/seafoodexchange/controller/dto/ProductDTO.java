@@ -10,15 +10,20 @@ import seafoodexchange.model.Product;
 @Setter
 @NoArgsConstructor
 public class ProductDTO {
-    private String name;
-    @JsonProperty("produced_in")
-    private String producedIn;
-    @JsonProperty("add_info")
-    private String addInfo;
+    private String type;
 
-    public ProductDTO(Product p) {
-        this.name = p.getName();
-        this.producedIn = p.getProducedIn();
-        this.addInfo = p.getAddInfo();
+    @JsonProperty("fish_family")
+    private String fishFamily;
+
+    @JsonProperty("cooling_type")
+    private String coolingType;
+
+    private String name;
+
+    public ProductDTO (Product prod) {
+        type = prod.getType();
+        fishFamily = prod.getFishFamily();
+        coolingType = prod.getCoolingType();
+        name = prod.getName();
     }
 }
