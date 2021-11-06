@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface PositionRepository extends JpaRepository<Position, Long> {
 
-    @Query("from Position p where p.company.id = :companyId")
-    List<Position> getCompanyPositionsById(Long companyId);
+    @Query("from Position p where p.company.id = :coId")
+    List<Position> getAllByCompanyId(Long coId);
 }

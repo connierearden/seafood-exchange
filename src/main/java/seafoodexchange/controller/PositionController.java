@@ -1,6 +1,6 @@
 package seafoodexchange.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import seafoodexchange.controller.dto.PositionDTO;
 import seafoodexchange.controller.dto.PositionResponseDTO;
@@ -16,14 +16,11 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("positions")
+@AllArgsConstructor
 public class PositionController {
-    @Autowired
+
     private PositionService positionService;
-
-    @Autowired
     private CompanyService companyService;
-
-    @Autowired
     private ProductService productService;
 
     //test +
@@ -49,9 +46,17 @@ public class PositionController {
                 .map(PositionResponseDTO::new).collect(Collectors.toList());
     }
 
-    public static void main(String[] args) {
-        String dateStart = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"));
-        System.out.println(dateStart);
+    //test +
+    @GetMapping("/{id}")
+    public PositionResponseDTO getById(@PathVariable Long id) {
+        return new PositionResponseDTO(positionService.getPositionById(id));
+    }
+
+    //test +
+    @GetMapping("/company_id={coId}")
+    public List<PositionResponseDTO> getAllByCompanyId (@PathVariable Long coId) {
+        return positionService.getPositionsByCompanyId(coId).stream()
+                .map(PositionResponseDTO::new).collect(Collectors.toList());
     }
 
 
