@@ -33,5 +33,4 @@ public class Position {
     private Integer priceForKilogram;
     private Integer boxes;
     private Integer boxWeight;
-
 }

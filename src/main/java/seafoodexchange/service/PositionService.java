@@ -19,4 +19,8 @@ public class PositionService {
     public List<Position> getCompanyPositionsById(Long companyId) {
         return positionRepository.getCompanyPositionsById(companyId);
     }
+
+    public List<Position> getAllPositions() {
+        return positionRepository.findAll();
+    }
 }
