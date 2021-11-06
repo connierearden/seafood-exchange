@@ -16,7 +16,7 @@ public class PositionService {
         positionRepository.save(position);
     }
 
-    public List<Position> getGrowerPositionsById(Long growerId) {
-        return positionRepository.getGrowerPositionsById(growerId);
+    public List<Position> getCompanyPositionsById(Long companyId) {
+        return positionRepository.getCompanyPositionsById(companyId);
     }
 }

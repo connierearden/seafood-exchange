@@ -1,5 +1,6 @@
 package seafoodexchange.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,20 +11,21 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "customers")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Grower {
+public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private String country;
 
-    @OneToMany(mappedBy = "grower", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private List<Position> positions;
+    private List<Order> orders;
 
     private Double balance;
 }

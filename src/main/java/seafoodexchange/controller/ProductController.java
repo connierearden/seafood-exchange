@@ -10,33 +10,34 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("product")
+@RequestMapping("products")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
     //test +
     @GetMapping
-    public List<ProductDTO> getAll () {
+    public List<ProductDTO> getAll() {
         return productService.getAllProducts().stream()
                 .map(ProductDTO::new).collect(Collectors.toList());
     }
 
     //test +
     @GetMapping("/{prodId}")
-    public ProductDTO getById (@PathVariable Long prodId) {
+    public ProductDTO getById(@PathVariable Long prodId) {
         return new ProductDTO(productService.getProductById(prodId));
     }
 
     //test +
     @PostMapping
-    public String create (@RequestBody ProductDTO productDTO) {
-        Product product = Product.builder()
+    public String create(@RequestBody ProductDTO productDTO) {
+        productService.createProduct(Product.builder()
                 .name(productDTO.getName())
-                .addInfo(productDTO.getAddInfo())
-                .producedIn(productDTO.getProducedIn())
-                .build();
-        productService.createProduct(product);
+                .type(productDTO.getType())
+                .fishFamily(productDTO.getFishFamily())
+                .coolingType(productDTO.getCoolingType())
+                .build()
+        );
         return "Success";
     }
 
