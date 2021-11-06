@@ -16,11 +16,15 @@ public class PositionService {
         positionRepository.save(position);
     }
 
-    public List<Position> getCompanyPositionsById(Long companyId) {
-        return positionRepository.getCompanyPositionsById(companyId);
+    public List<Position> getPositionsByCompanyId(Long coId) {
+        return positionRepository.getAllByCompanyId(coId);
     }
 
     public List<Position> getAllPositions() {
         return positionRepository.findAll();
+    }
+
+    public Position getPositionById(Long id) {
+        return positionRepository.getById(id);
     }
 }
