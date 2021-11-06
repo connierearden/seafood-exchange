@@ -2,12 +2,13 @@ package seafoodexchange.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import seafoodexchange.controller.dto.CompanyRequestDTO;
+import seafoodexchange.controller.dto.CompanyDTO;
 import seafoodexchange.controller.dto.CompanyResponseDTO;
 import seafoodexchange.model.Company;
 import seafoodexchange.service.CompanyService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("companies")
@@ -15,21 +16,22 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    //test -
-    @GetMapping("/{id}")
-    public CompanyResponseDTO getById(@PathVariable Long id) {
-        return null;
+    //test +
+    @GetMapping("/{companyId}")
+    public CompanyResponseDTO getById(@PathVariable Long companyId) {
+        return new CompanyResponseDTO(companyService.getCompanyById(companyId));
     }
 
-    //test -
+    //test +
     @GetMapping
     public List<CompanyResponseDTO> getAll() {
-        return null;
+        return companyService.getAllCompanies().stream()
+                .map(CompanyResponseDTO::new).collect(Collectors.toList());
     }
 
-    //test -
+    //test +
     @PostMapping
-    public String create(@RequestBody CompanyRequestDTO companyRequestDTO) {
+    public String create(@RequestBody CompanyDTO companyRequestDTO) {
         Company company = Company.builder()
                 .name(companyRequestDTO.getName())
                 .location(companyRequestDTO.getLocation())
