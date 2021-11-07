@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
+import seafoodexchange.model.enum_pack.CoolingType;
+import seafoodexchange.model.enum_pack.TypeProduct;
 
 import javax.persistence.*;
 import java.util.List;
@@ -19,9 +21,11 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @JsonIgnore
     private Long id;
-    private String type; //в будущем enum — рыба, икра, морепродукты
+    @Enumerated(EnumType.STRING)
+    private TypeProduct type;
     private String fishFamily;
-    private String coolingType; //в будущем enum — живая, охлажденная, мороженая
+    @Enumerated(EnumType.STRING)
+    private CoolingType coolingType;
     private String name;
 
 
@@ -35,3 +39,6 @@ public class Product {
     @JsonIgnore
     private List<Order> orders;
 }
+
+
+

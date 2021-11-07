@@ -5,18 +5,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import seafoodexchange.model.Product;
+import seafoodexchange.model.enum_pack.CoolingType;
+import seafoodexchange.model.enum_pack.TypeProduct;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ProductDTO {
-    private String type;
+    private TypeProduct type;
 
     @JsonProperty("fish_family")
     private String fishFamily;
 
     @JsonProperty("cooling_type")
-    private String coolingType;
+    private CoolingType coolingType;
 
     private String name;
 
