@@ -1,15 +1,19 @@
 package seafoodexchange.controller;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import seafoodexchange.model.Company;
+import seafoodexchange.model.Customer;
 import seafoodexchange.model.Position;
 import seafoodexchange.model.Product;
 import seafoodexchange.model.enum_pack.CoolingType;
 import seafoodexchange.model.enum_pack.TypeProduct;
 import seafoodexchange.service.CompanyService;
+import seafoodexchange.service.CustomerService;
 import seafoodexchange.service.PositionService;
 import seafoodexchange.service.ProductService;
 
@@ -69,16 +73,20 @@ public class StartController {
         return "Companies are added";
     }
 
-    @GetMapping("/positions")
-    public String createPositions() {
-        if (positionService.getAllPositions().isEmpty()) {
-            positionService.createPosition(new Position(0L, LocalDateTime.of(2021, 11, 10, 14, 20),
-                    LocalDateTime.of(2021, 11, 15, 14, 20), null, null, 800, 5, 4));
-            positionService.createPosition(new Position(1L, LocalDateTime.of(2021, 11, 20, 15, 30),
-                    LocalDateTime.of(2021, 11, 25, 15, 30), null, null, 700, 4, 3));
-            positionService.createPosition(new Position(2L, LocalDateTime.of(2021, 12, 8, 19, 15),
-                    LocalDateTime.of(2021, 12, 12, 18, 15), null, null, 600, 7, 2));
-        }
-        return "Positions are added";
-    }
+//    @GetMapping("/positions")
+//    public String createPositions() {
+//        if (positionService.getAllPositions().isEmpty()) {
+//            positionService.createPosition(new Position(0L, LocalDateTime.of(2021, 11, 10, 14, 20),
+//                    LocalDateTime.of(2021, 11, 15, 14, 20), null, null, 800, 5, 4));
+//            positionService.createPosition(new Position(1L, LocalDateTime.of(2021, 11, 20, 15, 30),
+//                    LocalDateTime.of(2021, 11, 25, 15, 30), null, null, 700, 4, 3));
+//            positionService.createPosition(new Position(2L, LocalDateTime.of(2021, 12, 8, 19, 15),
+//                    LocalDateTime.of(2021, 12, 12, 18, 15), null, null, 600, 7, 2));
+//        }
+//        return "Positions are added";
+//    }
 }
+
+
+
+

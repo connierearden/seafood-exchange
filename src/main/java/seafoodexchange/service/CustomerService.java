@@ -14,4 +14,8 @@ public class CustomerService {
     public Customer getCustomById(Long id) {
         return customerRepository.getById(id);
     }
+
+    public void createCustomer(Customer customer) {
+        customerRepository.save(customer);
+    }
 }
