@@ -1,5 +1,6 @@
 package seafoodexchange.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import seafoodexchange.controller.dto.CompanyDTO;
@@ -12,8 +13,9 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("companies")
+@AllArgsConstructor
 public class CompanyController {
-    @Autowired
+
     private CompanyService companyService;
 
     //test +

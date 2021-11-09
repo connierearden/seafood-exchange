@@ -1,11 +1,10 @@
 package seafoodexchange.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
-import seafoodexchange.model.enum_pack.CoolingType;
-import seafoodexchange.model.enum_pack.TypeProduct;
+import seafoodexchange.model.enums.CoolingType;
+import seafoodexchange.model.enums.TypeProduct;
 
 import javax.persistence.*;
 import java.util.List;

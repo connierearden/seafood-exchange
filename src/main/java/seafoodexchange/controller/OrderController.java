@@ -5,10 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import seafoodexchange.controller.dto.OrderRequestDTO;
 import seafoodexchange.controller.dto.OrderResponseDTO;
 import seafoodexchange.model.Order;
-import seafoodexchange.service.CompanyService;
-import seafoodexchange.service.CustomerService;
-import seafoodexchange.service.OrderService;
-import seafoodexchange.service.ProductService;
+import seafoodexchange.service.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,21 +20,24 @@ public class OrderController {
     private CustomerService customerService;
     private CompanyService companyService;
     private ProductService productService;
+    private PositionService positionService;
 
     //test -
     @PostMapping
     public String create(@RequestBody OrderRequestDTO orderRequestDTO) {
+        //логика для определения статуса заказа -- создать для этого метод сервиса
+        String status = orderService.setOrderStatus (orderRequestDTO);
         orderService.createOrder(
                 Order.builder()
                         .dateCreate(LocalDateTime.now())
                         .customer(customerService.getCustomById(orderRequestDTO.getCustomerId()))
                         .company(companyService.getCompanyById(orderRequestDTO.getCompanyId()))
-                        .product(productService.getProductById(orderRequestDTO.getProductId()))
+                        .product(positionService.getPositionById(orderRequestDTO.getPositionId()).getProduct())
                         .priceForKilogram(orderRequestDTO.getPriceForKilogram())
                         .boxes(orderRequestDTO.getBoxes())
                         .boxWeight(orderRequestDTO.getBoxWeight())
-                        .status(orderRequestDTO.getStatus())
-                        .sentTo(orderRequestDTO.getSentTo())
+                        .status(null)
+                        .sentTo(null)
                         .build());
         return "Success";
     }

@@ -1,52 +1,71 @@
 package seafoodexchange.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import javassist.compiler.ast.Pair;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import seafoodexchange.model.Company;
-import seafoodexchange.model.Customer;
 import seafoodexchange.model.Position;
 import seafoodexchange.model.Product;
-import seafoodexchange.model.enum_pack.CoolingType;
-import seafoodexchange.model.enum_pack.TypeProduct;
+import seafoodexchange.model.enums.CoolingType;
+import seafoodexchange.model.enums.TypeProduct;
 import seafoodexchange.service.CompanyService;
-import seafoodexchange.service.CustomerService;
 import seafoodexchange.service.PositionService;
 import seafoodexchange.service.ProductService;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @RestController
-@RequestMapping("api")
+@AllArgsConstructor
 public class StartController {
-    @Autowired
+
     private ProductService productService;
-
-    @Autowired
     private CompanyService companyService;
-
-    @Autowired
     private PositionService positionService;
 
-    @GetMapping("/products")
+    @GetMapping
+    public String fillDataIn() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(createProducts());
+        sb.append(createCompanies());
+        sb.append(createPositions());
+        sb.append(createCustomers());
+        sb.append(createOrders());
+
+        return sb.toString();
+    }
+
     public String createProducts() {
+        String answer = "Operation does not perform\n";
+
+        List<String> salmonFish = List.of("Форель", "Горбуша", "Кета", "Нельма", "Кижуч", "Чавыча", "Кумжа", "Сиг", "Омуль", "Хариус", "Таймень", "Ленок");
         if (productService.getAllProducts().isEmpty()) {
-            productService.createProduct(new Product(10L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Семга", null, null));
-            productService.createProduct(new Product(11L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Форель", null, null));
-            productService.createProduct(new Product(12L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Горбуша", null, null));
-            productService.createProduct(new Product(13L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Кета", null, null));
-            productService.createProduct(new Product(14L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Нельма", null, null));
-            productService.createProduct(new Product(15L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Кижуч", null, null));
-            productService.createProduct(new Product(16L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Чавыча", null, null));
-            productService.createProduct(new Product(17L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Кумжа", null, null));
-            productService.createProduct(new Product(18L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Сиг", null, null));
-            productService.createProduct(new Product(19L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Омуль", null, null));
-            productService.createProduct(new Product(20L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Хариус", null, null));
-            productService.createProduct(new Product(21L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Таймень", null, null));
-            productService.createProduct(new Product(22L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Ленок", null, null));
+            salmonFish.forEach(salmonFishName ->
+                    productService.createProduct(Product.builder()
+                            .type(TypeProduct.FISH)
+                            .fishFamily("Лососевые")
+                            .coolingType(CoolingType.values()[new Random().nextInt(3)])
+                            .name(salmonFishName)
+                            .build()));
+
+
+//            productService.createProduct(new Product(11L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Форель", null, null));
+//            productService.createProduct(new Product(12L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Горбуша", null, null));
+//            productService.createProduct(new Product(13L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Кета", null, null));
+//            productService.createProduct(new Product(14L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Нельма", null, null));
+//            productService.createProduct(new Product(15L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Кижуч", null, null));
+//            productService.createProduct(new Product(16L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Чавыча", null, null));
+//            productService.createProduct(new Product(17L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Кумжа", null, null));
+//            productService.createProduct(new Product(18L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Сиг", null, null));
+//            productService.createProduct(new Product(19L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Омуль", null, null));
+//            productService.createProduct(new Product(20L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Хариус", null, null));
+//            productService.createProduct(new Product(21L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Таймень", null, null));
+//            productService.createProduct(new Product(22L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Ленок", null, null));
             productService.createProduct(new Product(23L, TypeProduct.FISH, "Осетровые", CoolingType.LIVE, "Осетр", null, null));
             productService.createProduct(new Product(24L, TypeProduct.FISH, "Осетровые", CoolingType.FROZEN, "Севрюга", null, null));
             productService.createProduct(new Product(25L, TypeProduct.FISH, "Осетровые", CoolingType.FROZEN, "Стерлядь", null, null));
@@ -58,35 +77,44 @@ public class StartController {
             productService.createProduct(new Product(31L, TypeProduct.FISH, "Сельдевые", CoolingType.CHILLED, "Сельдь", null, null));
             productService.createProduct(new Product(32L, TypeProduct.FISH, "Сельдевые", CoolingType.CHILLED, "Сардины", null, null));
             productService.createProduct(new Product(33L, TypeProduct.FISH, "Сельдевые", CoolingType.LIVE, "Шпроты", null, null));
+            answer = "Products are added\n";
         }
-        return "Products are added";
+        return answer;
     }
 
-    @GetMapping("/companies")
     public String createCompanies() {
+        String answer = "Operation does not perform";
         if (companyService.getAllCompanies().isEmpty()) {
             companyService.createCompany(new Company(0L, "Рыба и хозяева", "Москва", null, null, 0D));
             companyService.createCompany(new Company(1L, "Рыбный лов", "Волгоград", null, null, 0D));
             companyService.createCompany(new Company(2L, "Рыба-север", "Мурманск", null, null, 0D));
             companyService.createCompany(new Company(3L, "Рыболовы", "Самара", null, null, 0D));
+            answer = "Companies are added\n";
         }
-        return "Companies are added";
+        return answer;
     }
 
-//    @GetMapping("/positions")
-//    public String createPositions() {
-//        if (positionService.getAllPositions().isEmpty()) {
-//            positionService.createPosition(new Position(0L, LocalDateTime.of(2021, 11, 10, 14, 20),
-//                    LocalDateTime.of(2021, 11, 15, 14, 20), null, null, 800, 5, 4));
-//            positionService.createPosition(new Position(1L, LocalDateTime.of(2021, 11, 20, 15, 30),
-//                    LocalDateTime.of(2021, 11, 25, 15, 30), null, null, 700, 4, 3));
-//            positionService.createPosition(new Position(2L, LocalDateTime.of(2021, 12, 8, 19, 15),
-//                    LocalDateTime.of(2021, 12, 12, 18, 15), null, null, 600, 7, 2));
-//        }
-//        return "Positions are added";
-//    }
+    public String createPositions() {
+        String answer = "";
+        if (positionService.getAllPositions().isEmpty()) {
+            positionService.createPosition(
+                    new Position(null, LocalDateTime.of(2021, 11, 10, 14, 20),
+                            LocalDateTime.of(2021, 11, 15, 14, 20),
+                            null, null, 800, 5, 4));
+
+            answer = "Position are added\n";
+        }
+        return answer;
+    }
+
+    public String createCustomers() {
+        //create 5 customers
+        return null;
+    }
+
+    public String createOrders() {
+        //create 5 orders
+        return null;
+    }
+
 }
-
-
-
-
