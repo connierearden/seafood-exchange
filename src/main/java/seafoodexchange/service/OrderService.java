@@ -35,4 +35,8 @@ public class OrderService {
     public String setOrderStatus(OrderRequestDTO orderRequestDTO) {
         return  null;
     }
+
+    public List<Order> getAllOrders() {
+        return orderRepository.findAll();
+    }
 }
