@@ -2,6 +2,7 @@ package seafoodexchange.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import seafoodexchange.controller.dto.OrderRequestDTO;
 import seafoodexchange.controller.dto.OrderResponseDTO;
 import seafoodexchange.model.Order;
 import seafoodexchange.repository.OrderRepository;
@@ -29,5 +30,9 @@ public class OrderService {
 
     public Order getOrdersById(Long id) {
         return orderRepository.getById(id);
+    }
+
+    public String setOrderStatus(OrderRequestDTO orderRequestDTO) {
+        return  null;
     }
 }

@@ -1,9 +1,7 @@
 package seafoodexchange.controller;
 
-import javassist.compiler.ast.Pair;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import seafoodexchange.model.Company;
 import seafoodexchange.model.Position;
@@ -44,39 +42,22 @@ public class StartController {
         String answer = "Operation does not perform\n";
 
         List<String> salmonFish = List.of("Форель", "Горбуша", "Кета", "Нельма", "Кижуч", "Чавыча", "Кумжа", "Сиг", "Омуль", "Хариус", "Таймень", "Ленок");
+        Map<String, String> fishNameAndFamily = new HashMap<>();
+
+        List.of("Форель", "Горбуша", "Кета", "Нельма", "Кижуч", "Чавыча", "Кумжа", "Сиг", "Омуль", "Хариус", "Таймень", "Ленок")
+                .forEach( name -> fishNameAndFamily.put(name, "Лососевые"));
+        List.of("Осетр", "Севрюга", "Стерлядь", "Белуга", "Шип").forEach( name -> fishNameAndFamily.put(name, "Осетровые"));
+        List.of("Судак", "Окунь", "Ёрш").forEach( name -> fishNameAndFamily.put(name, "Окуневые"));
+        List.of("Сельдь", "Сардины", "Шпроты").forEach( name -> fishNameAndFamily.put(name, "Сельдевые"));
+
         if (productService.getAllProducts().isEmpty()) {
-            salmonFish.forEach(salmonFishName ->
+            fishNameAndFamily.forEach((k, v) ->
                     productService.createProduct(Product.builder()
                             .type(TypeProduct.FISH)
-                            .fishFamily("Лососевые")
+                            .fishFamily(v)
                             .coolingType(CoolingType.values()[new Random().nextInt(3)])
-                            .name(salmonFishName)
+                            .name(k)
                             .build()));
-
-
-//            productService.createProduct(new Product(11L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Форель", null, null));
-//            productService.createProduct(new Product(12L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Горбуша", null, null));
-//            productService.createProduct(new Product(13L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Кета", null, null));
-//            productService.createProduct(new Product(14L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Нельма", null, null));
-//            productService.createProduct(new Product(15L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Кижуч", null, null));
-//            productService.createProduct(new Product(16L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Чавыча", null, null));
-//            productService.createProduct(new Product(17L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Кумжа", null, null));
-//            productService.createProduct(new Product(18L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Сиг", null, null));
-//            productService.createProduct(new Product(19L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Омуль", null, null));
-//            productService.createProduct(new Product(20L, TypeProduct.FISH, "Лососевые", CoolingType.FROZEN, "Хариус", null, null));
-//            productService.createProduct(new Product(21L, TypeProduct.FISH, "Лососевые", CoolingType.CHILLED, "Таймень", null, null));
-//            productService.createProduct(new Product(22L, TypeProduct.FISH, "Лососевые", CoolingType.LIVE, "Ленок", null, null));
-            productService.createProduct(new Product(23L, TypeProduct.FISH, "Осетровые", CoolingType.LIVE, "Осетр", null, null));
-            productService.createProduct(new Product(24L, TypeProduct.FISH, "Осетровые", CoolingType.FROZEN, "Севрюга", null, null));
-            productService.createProduct(new Product(25L, TypeProduct.FISH, "Осетровые", CoolingType.FROZEN, "Стерлядь", null, null));
-            productService.createProduct(new Product(26L, TypeProduct.FISH, "Осетровые", CoolingType.LIVE, "Белуга", null, null));
-            productService.createProduct(new Product(27L, TypeProduct.FISH, "Осетровые", CoolingType.CHILLED, "Шип", null, null));
-            productService.createProduct(new Product(28L, TypeProduct.FISH, "Окуневые", CoolingType.CHILLED, "Судак", null, null));
-            productService.createProduct(new Product(29L, TypeProduct.FISH, "Окуневые", CoolingType.FROZEN, "Окунь", null, null));
-            productService.createProduct(new Product(30L, TypeProduct.FISH, "Окуневые", CoolingType.CHILLED, "Ёрш", null, null));
-            productService.createProduct(new Product(31L, TypeProduct.FISH, "Сельдевые", CoolingType.CHILLED, "Сельдь", null, null));
-            productService.createProduct(new Product(32L, TypeProduct.FISH, "Сельдевые", CoolingType.CHILLED, "Сардины", null, null));
-            productService.createProduct(new Product(33L, TypeProduct.FISH, "Сельдевые", CoolingType.LIVE, "Шпроты", null, null));
             answer = "Products are added\n";
         }
         return answer;
@@ -84,11 +65,15 @@ public class StartController {
 
     public String createCompanies() {
         String answer = "Operation does not perform";
+        Map<String, String> companyNameAndLocation = new HashMap<>();
+        companyNameAndLocation.put("Рыба и хозяева", "Москва");
+        companyNameAndLocation.put("Рыбный лов", "Волгоград");
+        companyNameAndLocation.put("Рыба-север", "Мурманск");
+        companyNameAndLocation.put("Рыболовы", "Самара");
+
         if (companyService.getAllCompanies().isEmpty()) {
-            companyService.createCompany(new Company(0L, "Рыба и хозяева", "Москва", null, null, 0D));
-            companyService.createCompany(new Company(1L, "Рыбный лов", "Волгоград", null, null, 0D));
-            companyService.createCompany(new Company(2L, "Рыба-север", "Мурманск", null, null, 0D));
-            companyService.createCompany(new Company(3L, "Рыболовы", "Самара", null, null, 0D));
+            companyNameAndLocation.forEach((k,v) -> companyService.createCompany(Company.builder()
+                    .name(k).location(v).balance(0d).build()));
             answer = "Companies are added\n";
         }
         return answer;
