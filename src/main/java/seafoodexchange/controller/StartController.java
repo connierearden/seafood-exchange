@@ -3,14 +3,10 @@ package seafoodexchange.controller;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import seafoodexchange.model.Company;
-import seafoodexchange.model.Position;
-import seafoodexchange.model.Product;
+import seafoodexchange.model.*;
 import seafoodexchange.model.enums.CoolingType;
 import seafoodexchange.model.enums.TypeProduct;
-import seafoodexchange.service.CompanyService;
-import seafoodexchange.service.PositionService;
-import seafoodexchange.service.ProductService;
+import seafoodexchange.service.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -25,6 +21,8 @@ public class StartController {
     private ProductService productService;
     private CompanyService companyService;
     private PositionService positionService;
+    private CustomerService customerService;
+    private OrderService orderService;
 
     @GetMapping
     public String fillDataIn() {
@@ -80,8 +78,7 @@ public class StartController {
     }
 
     public String createPositions() {
-        String answer = "";
-
+        String answer = "Operation does not perform";
         if (positionService.getAllPositions().isEmpty()) {
             for (int i =0; i< 5; i++) {
                 LocalDateTime randomDay = LocalDateTime.of(2021, 11, new Random().nextInt(30), 12, 0, 0);
@@ -100,13 +97,35 @@ public class StartController {
     }
 
     public String createCustomers() {
-        //create 5 customers - сделать как компании!
-        return null;
+        String answer = "Operation does not perform";
+        Map<String, String> customerAndLocation = new HashMap<>();
+        customerAndLocation.put("Тимошнко Антон", "Белоруссия");
+        customerAndLocation.put("Кушнирик Светлана", "Украина");
+        customerAndLocation.put("Свендсен Кларк", "Норвегия");
+        customerAndLocation.put("Альфредсен Карл", "Швеция");
+        customerAndLocation.put("Джон Джонсон", "США");
+        if(customerService.getAllCustomers().isEmpty()) {
+            customerAndLocation.forEach((k, v) -> customerService.createCustomer(Customer.builder()
+            .name(k).location(v).balance(0D).build()));
+            answer = "Customers are added\n";
+        }
+        return answer;
     }
 
     public String createOrders() {
-        //create 5 orders
-        return null;
+        String answer = "Operation does not perform";
+        if (orderService.getAllOrders().isEmpty()) {
+            for (int i = 0; i < 5; i++) {
+                LocalDateTime randomDay = LocalDateTime.of(2021, 11, new Random().nextInt(30), 12, 0, 0);
+                orderService.createOrder(Order.builder().dateCreate(randomDay).priceForKilogram(800).boxes(4).boxWeight(300)
+                        //дописать случайный выбор компании, продукта, заказчика и покупателя
+                        .build());
+
+            }
+            answer = "Orders are added\n";
+
+        }
+        return answer;
     }
 
 }

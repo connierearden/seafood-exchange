@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import seafoodexchange.model.Customer;
 import seafoodexchange.repository.CustomerRepository;
 
+import java.util.List;
+
 @Service
 public class CustomerService {
     @Autowired
@@ -17,5 +19,9 @@ public class CustomerService {
 
     public void createCustomer(Customer customer) {
         customerRepository.save(customer);
+    }
+
+    public List<Customer> getAllCustomers() {
+        return customerRepository.findAll();
     }
 }
