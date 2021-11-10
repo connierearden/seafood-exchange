@@ -15,7 +15,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Shedevr bliat
+          Learn React
         </a>
       </header>
     </div>
