@@ -11,10 +11,10 @@ import seafoodexchange.model.Customer;
 public class CustomerDTO {
     private String name;
 
-    private String country;
+    private String location;
 
     public CustomerDTO(Customer customer) {
         name = customer.getName();
-        country = customer.getCountry();
+        location = customer.getLocation();
     }
 }

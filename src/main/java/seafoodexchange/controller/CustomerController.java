@@ -7,8 +7,6 @@ import seafoodexchange.controller.dto.CustomerResponseDTO;
 import seafoodexchange.model.Customer;
 import seafoodexchange.service.CustomerService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/customers")
 public class CustomerController {
@@ -26,7 +24,7 @@ public class CustomerController {
     @PostMapping
     public String create(@RequestBody CustomerDTO customerRequestDTO) {
         customerService.createCustomer(Customer.builder().name(customerRequestDTO.getName())
-        .country(customerRequestDTO.getCountry()).balance(0D).orders(null).build());
+        .location(customerRequestDTO.getLocation()).balance(0D).orders(null).build());
         return "Success";
     }
 }
