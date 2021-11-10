@@ -45,10 +45,10 @@ public class StartController {
         Map<String, String> fishNameAndFamily = new HashMap<>();
 
         List.of("Форель", "Горбуша", "Кета", "Нельма", "Кижуч", "Чавыча", "Кумжа", "Сиг", "Омуль", "Хариус", "Таймень", "Ленок")
-                .forEach( name -> fishNameAndFamily.put(name, "Лососевые"));
-        List.of("Осетр", "Севрюга", "Стерлядь", "Белуга", "Шип").forEach( name -> fishNameAndFamily.put(name, "Осетровые"));
-        List.of("Судак", "Окунь", "Ёрш").forEach( name -> fishNameAndFamily.put(name, "Окуневые"));
-        List.of("Сельдь", "Сардины", "Шпроты").forEach( name -> fishNameAndFamily.put(name, "Сельдевые"));
+                .forEach(name -> fishNameAndFamily.put(name, "Лососевые"));
+        List.of("Осетр", "Севрюга", "Стерлядь", "Белуга", "Шип").forEach(name -> fishNameAndFamily.put(name, "Осетровые"));
+        List.of("Судак", "Окунь", "Ёрш").forEach(name -> fishNameAndFamily.put(name, "Окуневые"));
+        List.of("Сельдь", "Сардины", "Шпроты").forEach(name -> fishNameAndFamily.put(name, "Сельдевые"));
 
         if (productService.getAllProducts().isEmpty()) {
             fishNameAndFamily.forEach((k, v) ->
@@ -72,7 +72,7 @@ public class StartController {
         companyNameAndLocation.put("Рыболовы", "Самара");
 
         if (companyService.getAllCompanies().isEmpty()) {
-            companyNameAndLocation.forEach((k,v) -> companyService.createCompany(Company.builder()
+            companyNameAndLocation.forEach((k, v) -> companyService.createCompany(Company.builder()
                     .name(k).location(v).balance(0d).build()));
             answer = "Companies are added\n";
         }
@@ -81,19 +81,26 @@ public class StartController {
 
     public String createPositions() {
         String answer = "";
-        if (positionService.getAllPositions().isEmpty()) {
-            positionService.createPosition(
-                    new Position(null, LocalDateTime.of(2021, 11, 10, 14, 20),
-                            LocalDateTime.of(2021, 11, 15, 14, 20),
-                            null, null, 800, 5, 4));
 
+        if (positionService.getAllPositions().isEmpty()) {
+            for (int i =0; i< 5; i++) {
+                LocalDateTime randomDay = LocalDateTime.of(2021, 11, new Random().nextInt(30), 12, 0, 0);
+                positionService.createPosition(Position.builder()
+                        .dateStart(randomDay)
+                        .dateFinish(randomDay.plusHours(new Random().nextInt(10)))
+                        .priceForKilogram(1000)
+                        .boxes(100)
+                        .boxWeight(100)
+                        //дописать случайный выбор компании и продукта
+                        .build());
+            }
             answer = "Position are added\n";
         }
         return answer;
     }
 
     public String createCustomers() {
-        //create 5 customers
+        //create 5 customers - сделать как компании!
         return null;
     }
 

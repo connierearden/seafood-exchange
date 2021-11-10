@@ -14,8 +14,8 @@ public class OrderRequestDTO {
     @JsonProperty("company_id")
     private Long companyId;
 
-    @JsonProperty("product_id")
-    private Long productId;
+    @JsonProperty("position_id")
+    private Long positionId;
 
     @JsonProperty("price_for_kilogram")
     private int priceForKilogram;

@@ -12,7 +12,7 @@ import seafoodexchange.model.Customer;
 public class CustomerResponseDTO {
     private String name;
 
-    private String country;
+    private String location;
 
     private Double balance;
 
@@ -21,7 +21,7 @@ public class CustomerResponseDTO {
 
     public CustomerResponseDTO(Customer customer) {
         name = customer.getName();
-        country = customer.getCountry();
+        location = customer.getLocation();
         balance = customer.getBalance();
         orderSize = customer.getOrders().size();
     }
